@@ -11,7 +11,6 @@ if(!isLogged()) {
     }
 }
 ?>
-
     <!doctype html>
     <html lang="ru">
 
@@ -42,6 +41,13 @@ if(!isLogged()) {
     <?php
     $uploadDir = "uploads/";
     $tests = showUploadedTests($uploadDir);
+    if(isLogged()) :
+    ?>
+    <br>
+    <a href="admin.php">Добавить тест</a>
+    <br>
+    <?php
+    endif;
     ?>
     <form method="get">
         <label for="testNumber">Введите номер теста, который хотите пройти:</label>
@@ -72,17 +78,9 @@ if(!isLogged()) {
     }
 
 if(isLogged()) : ?>
-    <form action="upload.php" method="post" id="uploadJson" enctype="multipart/form-data">
-        Загрузить новый тест:
-        <input type="file" name="testJson" id="testJson">
-        <button name="submit" class="btn btn-primary" type="submit" value="submit">Загрузить</button>
-    </form>
-    <br>
-    <i>Вы вошли как <?= $_SESSION['login'] ?>. <a href="logout.php">Выйти</a></i>
-    <?php
-endif;
-    if (!empty($_SESSION['guest'])) : ?>
-    <i><a href="logout.php">Хотите поменять имя или войти в учетную запись?</a></i><br>
+    <i>Вы вошли как <?= $_SESSION['login'] ?>. <a href="logout.php">Выйти?</a></i>
+    <?php else : ?>
+    <i><a href="logout.php">Хотите поменять имя или войти в учетную запись?</a></i>
     <?php
     endif;
     ?>

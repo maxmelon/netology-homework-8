@@ -1,5 +1,6 @@
 <?php
-
+include 'functions.php';
+session_start();
 $uploadDir = "uploads/";
 
 if (!file_exists($uploadDir) || (file_exists($uploadDir) && !is_dir($uploadDir))) {

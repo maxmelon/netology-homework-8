@@ -5,22 +5,29 @@ function logout()
     header('Location: ' . getLoginPath());
 }
 
-function login($login, $password)
+function login($login, $password, $path)
 {
-    $correctCredentials = getCorrectCredentials('auth.json');
-    if (array_key_exists($login, $correctCredentials) && $password == $correctCredentials[$login]) {
-        $_SESSION['login'] = $login;
-        return true;
-    } else {
-        setError('Неверный логин или пароль');
+    if (getCorrectCredentials($path)) {
+        $correctCredentials = getCorrectCredentials($path);
+        if (array_key_exists($login, $correctCredentials) && $password == $correctCredentials[$login]) {
+            $_SESSION['login'] = $login;
+            return true;
+        } else {
+            setError('Неверный логин или пароль');
+            return false;
+        }
     }
     return false;
 }
 
 function getCorrectCredentials($path) {
+    if (file_exists($path)) {
     $jsonContent = file_get_contents($path);
     $jsonDecoded = json_decode($jsonContent, true);
     return $jsonDecoded;
+    } else {
+        return false;
+    }
 }
 
 function setError($msg)

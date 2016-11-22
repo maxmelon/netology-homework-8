@@ -2,7 +2,7 @@
 include  'functions.php';
 session_start();
 if (!empty($_POST['Auth'])) {
-    $isLogged = login($_POST['Auth']['login'], $_POST['Auth']['password']);
+    $isLogged = login($_POST['Auth']['login'], $_POST['Auth']['password'], 'admin.json');
     if ($isLogged) {
         header('Location: ' . getHomepagePath());
     } else {
