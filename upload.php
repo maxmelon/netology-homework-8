@@ -1,12 +1,12 @@
 <?php
 include 'functions.php';
 session_start();
-$uploadDir = "uploads/";
+if(isLogged()) :
 
+$uploadDir = "uploads/";
 if (!file_exists($uploadDir) || (file_exists($uploadDir) && !is_dir($uploadDir))) {
     mkdir($uploadDir);
 }
-
 $temp = explode('.', $_FILES['testJson']['name']);
 
 // Используем марку времени (до миллисекунд) для названия файла
@@ -22,3 +22,6 @@ if (move_uploaded_file($_FILES['testJson']['tmp_name'], $uploadFile)) {
 echo "Не удалось переместить файл в директорию на сервере\n";
 }
 
+else :
+    http_response_code(403);
+endif;
